@@ -1,0 +1,8 @@
+C:\Users\MCRO\Documents\MCUXpressoIDE_11.4.1_6260\workspace\frdmk64f_lwip_tcpecho_freertos_ProyectoEdgar\phy/fsl_phy.h:147:24:PHY_Init	16	static
+C:\Users\MCRO\Documents\MCUXpressoIDE_11.4.1_6260\workspace\frdmk64f_lwip_tcpecho_freertos_ProyectoEdgar\phy/fsl_phy.h:191:24:PHY_GetAutoNegotiationStatus	16	static
+C:\Users\MCRO\Documents\MCUXpressoIDE_11.4.1_6260\workspace\frdmk64f_lwip_tcpecho_freertos_ProyectoEdgar\phy/fsl_phy.h:206:24:PHY_GetLinkStatus	16	static
+C:\Users\MCRO\Documents\MCUXpressoIDE_11.4.1_6260\workspace\frdmk64f_lwip_tcpecho_freertos_ProyectoEdgar\phy/fsl_phy.h:223:24:PHY_GetLinkSpeedDuplex	24	static
+../lwip/port/enet_ethernetif.c:69:6:ethernetif_phy_init	48	static
+../lwip/port/enet_ethernetif.c:139:6:ethernetif_input	24	static
+../lwip/port/enet_ethernetif.c:158:7:ethernetif_get_enet_base	32	static
+../lwip/port/enet_ethernetif.c:202:7:ethernetif_init	24	static

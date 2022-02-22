@@ -1,0 +1,16 @@
+C:\Users\MCRO\Documents\MCUXpressoIDE_11.4.1_6260\workspace\frdmk64f_lwip_tcpecho_freertos_ProyectoEdgar\CMSIS/core_cm4.h:1809:22:__NVIC_SetPriority	16	static
+C:\Users\MCRO\Documents\MCUXpressoIDE_11.4.1_6260\workspace\frdmk64f_lwip_tcpecho_freertos_ProyectoEdgar\drivers/fsl_enet.h:1187:20:ENET_ActiveRead	16	static
+C:\Users\MCRO\Documents\MCUXpressoIDE_11.4.1_6260\workspace\frdmk64f_lwip_tcpecho_freertos_ProyectoEdgar\drivers/fsl_enet.h:1260:20:ENET_EnableInterrupts	16	static
+C:\Users\MCRO\Documents\MCUXpressoIDE_11.4.1_6260\workspace\frdmk64f_lwip_tcpecho_freertos_ProyectoEdgar\drivers/fsl_enet.h:1279:20:ENET_DisableInterrupts	16	static
+../lwip/port/enet_ethernetif_kinetis.c:183:13:ethernet_callback	48	static
+../lwip/port/enet_ethernetif_kinetis.c:312:14:ethernetif_rx_alloc	48	static
+../lwip/port/enet_ethernetif_kinetis.c:340:13:ethernetif_rx_free	40	static
+../lwip/port/enet_ethernetif_kinetis.c:359:6:ethernetif_enet_init	128	static
+../lwip/port/enet_ethernetif_kinetis.c:459:8:ethernetif_enet_ptr	16	static
+../lwip/port/enet_ethernetif_kinetis.c:468:23:enet_get_tx_buffer	16	static
+../lwip/port/enet_ethernetif_kinetis.c:477:14:enet_send_frame	48	static
+../lwip/port/enet_ethernetif_kinetis.c:518:13:ethernetif_rx_release	32	static
+../lwip/port/enet_ethernetif_kinetis.c:528:21:ethernetif_rx_frame_to_pbufs	56	static
+../lwip/port/enet_ethernetif_kinetis.c:586:14:ethernetif_linkinput	48	static
+../lwip/port/enet_ethernetif_kinetis.c:630:7:ethernetif_linkoutput	40	static
+../lwip/port/enet_ethernetif_kinetis.c:717:7:ethernetif0_init	16	static

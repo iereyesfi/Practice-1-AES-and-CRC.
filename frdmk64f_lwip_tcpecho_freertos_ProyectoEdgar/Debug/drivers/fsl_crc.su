@@ -1,0 +1,14 @@
+../drivers/fsl_clock.h:668:20:CLOCK_EnableClock	24	static
+../drivers/fsl_crc.c:79:36:CRC_GetTransposeTypeFromReflectIn	16	static
+../drivers/fsl_crc.c:91:36:CRC_GetTransposeTypeFromReflectOut	16	static
+../drivers/fsl_crc.c:105:13:CRC_ConfigureAndStart	24	static
+../drivers/fsl_crc.c:140:13:CRC_SetProtocolConfig	32	static
+../drivers/fsl_crc.c:164:13:CRC_SetRawProtocolConfig	32	static
+../drivers/fsl_crc.c:188:6:CRC_Init	16	static
+../drivers/fsl_crc.c:221:6:CRC_GetDefaultConfig	24	static
+../drivers/fsl_crc.c:246:6:CRC_WriteData	32	static
+../drivers/fsl_crc.c:287:10:CRC_Get32bitResult	16	static
+../drivers/fsl_crc.c:298:6:fill_checksum	16	static
+../drivers/fsl_crc.c:311:6:CRC_Clean_Register	16	static
+../drivers/fsl_crc.c:331:10:CRC_Get16bitResult	24	static
+../drivers/fsl_crc.c:360:6:InitCrc32	32	static

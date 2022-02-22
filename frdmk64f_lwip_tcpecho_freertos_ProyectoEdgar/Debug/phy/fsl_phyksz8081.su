@@ -1,0 +1,11 @@
+C:\Users\MCRO\Documents\MCUXpressoIDE_11.4.1_6260\workspace\frdmk64f_lwip_tcpecho_freertos_ProyectoEdgar\mdio/fsl_mdio.h:85:20:MDIO_Init	16	static
+C:\Users\MCRO\Documents\MCUXpressoIDE_11.4.1_6260\workspace\frdmk64f_lwip_tcpecho_freertos_ProyectoEdgar\mdio/fsl_mdio.h:101:24:MDIO_Write	32	static
+C:\Users\MCRO\Documents\MCUXpressoIDE_11.4.1_6260\workspace\frdmk64f_lwip_tcpecho_freertos_ProyectoEdgar\mdio/fsl_mdio.h:117:24:MDIO_Read	32	static
+../phy/fsl_phyksz8081.c:56:10:PHY_KSZ8081_Init	32	static
+../phy/fsl_phyksz8081.c:140:10:PHY_KSZ8081_Write	24	static
+../phy/fsl_phyksz8081.c:145:10:PHY_KSZ8081_Read	24	static
+../phy/fsl_phyksz8081.c:150:10:PHY_KSZ8081_GetAutoNegotiationStatus	24	static
+../phy/fsl_phyksz8081.c:171:10:PHY_KSZ8081_GetLinkStatus	24	static
+../phy/fsl_phyksz8081.c:196:10:PHY_KSZ8081_GetLinkSpeedDuplex	40	static
+../phy/fsl_phyksz8081.c:237:10:PHY_KSZ8081_SetLinkSpeedDuplex	24	static
+../phy/fsl_phyksz8081.c:271:10:PHY_KSZ8081_EnableLoopback	24	static

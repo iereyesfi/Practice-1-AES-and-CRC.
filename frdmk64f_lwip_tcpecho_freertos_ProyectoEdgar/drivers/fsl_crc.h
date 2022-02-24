@@ -181,13 +181,6 @@ uint16_t CRC_Get16bitResult(CRC_Type *base);
 void InitCrc32(CRC_Type *base, uint32_t seed);
 
 /*!
- * brief Storage the calculeted CRC in a char array.
- *
- * param base CRC peripheral address.
- */
-void fill_checksum(CRC_Type *base, char *checksum);
-
-/*!
  * brief Clean CRC data registers.
  *
  * param base CRC peripheral address.

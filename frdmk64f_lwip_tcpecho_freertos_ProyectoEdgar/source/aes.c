@@ -574,44 +574,64 @@ void AES_CTR_xcrypt_buffer(struct AES_ctx* ctx, uint8_t* buf, uint32_t length)
 
 
 /*!
- * @brief CRC32 calculation and encryption with AES128 .
+ * @brief CRC32 calculation and adition, encryption with AES128 .
  *
  * @param to_be_send_string: Pointer to the string to be send
  */
-void aes_send_task(void *to_be_send_string)
+void aes_send_task(void *to_be_send_string, uint16_t *len)
 {
+    int i;
+
 	/* AES data */
 	uint8_t key[] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
 	uint8_t iv[]  = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 	struct AES_ctx ctx;
 	size_t to_be_send_string_len, padded_len;
 	uint8_t padded_msg[512] = {0};
+
 	/* CRC data */
 	CRC_Type *base = CRC0;
-	uint8_t checksum[4] = {0};
+	uint32_t checksum32;
 
-    InitCrc32(CRC0, 0xFFFFFFFFU);
 	/* Init the AES context structure */
 	AES_init_ctx_iv(&ctx, key, iv);
 
 	/* To encrypt an array its lenght must be a multiple of 16 so we add zeros */
 	to_be_send_string_len = strlen(to_be_send_string);
 	padded_len = to_be_send_string_len + (16 - (to_be_send_string_len%16) );
-	AES_CBC_encrypt_buffer(&ctx, (uint8_t *)(to_be_send_string), padded_len);
-	memcpy(padded_msg, to_be_send_string, padded_len);
-
-	CRC_WriteData(base, (uint8_t *)(to_be_send_string), padded_len);
+    memcpy(padded_msg, to_be_send_string, to_be_send_string_len);
+	AES_CBC_encrypt_buffer(&ctx, padded_msg, (uint32_t)padded_len);
+	
+    /* Print the chyper message to be send */
 	PRINTF("Encrypted Message to be send: ");
-	for(int i=0; i<padded_len; i++)
+	for(i = 0; i < padded_len; i++)
 	{
 		PRINTF("0x%02x,", padded_msg[i]);
 	}
 	PRINTF("\r\n");
+
+	/* Initialize CRC Peripheral */
+	InitCrc32(CRC0, 0xFFFFFFFFU);
+
+    /* Calculate the message CRC */
+	CRC_WriteData(base, padded_msg, (uint32_t)padded_len);
+
+    /* Print the calculeted CRC */
     PRINTF("Calculated CRC-32 to be send: %u  -  0x%x\n", CRC_Get32bitResult(base), CRC_Get32bitResult(base));
-    fill_checksum(base, checksum);
-    for(int j = 0; j < 4; j++)
+
+    /* Storage the calculeted CRC */
+    checksum32 = CRC_Get32bitResult(base);
+
+    /* Add the CRC to the message to be send  */
+    for(i = 0; i < 4; i++)
     {
-    	*(uint8_t *)(to_be_send_string + padded_len + j) = checksum[j];
+    	padded_msg[padded_len + i] = (checksum32 >> (8 * i)) & 0xFF;
+    }
+    padded_len += 4;
+    *len = padded_len;
+    for(i = 0; i < padded_len; i++)
+    {
+    	*(uint8_t *)(to_be_send_string + i) = padded_msg[i];
     }
 }
 
@@ -620,40 +640,48 @@ void aes_send_task(void *to_be_send_string)
  *
  * @param received_string: Pointer to the received string
  */
-int aes_recv_task(void *received_string, uint32_t len)
+int aes_recv_task(void *received_string, uint16_t len)
 {
 	/* AES data */
 	uint8_t key[] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
 	uint8_t iv[]  = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 	struct AES_ctx ctx;
 	uint8_t padded_msg[512] = {0};
+
 	/* CRC data */
 	CRC_Type *base = CRC0;
 	uint32_t checksum32 = 0;
 
-    InitCrc32(CRC0, 0xFFFFFFFFU);
-	memcpy(padded_msg, (received_string), len - 4);
-	PRINTF("Encrypted Message: ");
+  /* Print received message*/
+	memcpy(padded_msg, received_string, len - 4);
+	PRINTF("Encrypted message received: ");
 	for(int i=0; i<len - 4; i++)
 	{
 		PRINTF("0x%02x,", padded_msg[i]);
 	}
 	PRINTF("\n");
+
 	/* Storage the CRC received with the message */
 	checksum32 = *(uint32_t *)(received_string + len - 4);
+
+    /* Erase the received CRC to be updated before echo */
+	*(uint32_t *)(received_string + len - 4) = (uint32_t)0x00000000;
+
+	/* Initialize CRC Peripheral */
+	InitCrc32(CRC0, 0xFFFFFFFFU);
+
 	/* Calculate the message CRC */
 	CRC_WriteData(base, (uint8_t *)(received_string), (len - 4));
+
+  /* Print the calculeted CRC decimal - hexadecimal */
 	PRINTF("Calculated CRC of the received message: %u  -  0x%x\n", CRC_Get32bitResult(base), CRC_Get32bitResult(base));
-	/* Erase the received CRC to be updated before echo */
-	for(int j = 1; j < 5; j++)
-	{
-		*(uint8_t *)(received_string + len - j) = 0x00;
-	}
+
 	/* If the calculated CRC and received CRC are equal, then we decrypt the message */
 	if(CRC_Get32bitResult(base) == checksum32)
 	{
 		/* Init the AES context structure */
 		AES_init_ctx_iv(&ctx, key, iv);
+
 		/* Decrypt the message */
 		AES_CBC_decrypt_buffer(&ctx, (uint8_t *)(received_string), (len - 4));
 
@@ -670,4 +698,3 @@ int aes_recv_task(void *received_string, uint32_t len)
 		return 0;
 	}
 }
-

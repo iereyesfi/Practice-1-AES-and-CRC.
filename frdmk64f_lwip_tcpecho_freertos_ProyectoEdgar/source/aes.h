@@ -89,5 +89,7 @@ void AES_CTR_xcrypt_buffer(struct AES_ctx* ctx, uint8_t* buf, uint32_t length);
 
 #endif //_AES_H_
 
-int aes_recv_task(void *original_string, uint32_t len);
-void aes_send_task(void *original_string);
+int aes_recv_task(void *original_string, uint16_t len);
+void aes_send_task(void *to_be_send_string, uint16_t *len);
+
+

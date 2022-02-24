@@ -54,7 +54,6 @@ def server_create(server_ip_address):
     sock.settimeout(SOCKET_TIMEOUT)
     # Bind the socket to the port
     server_address = (server_ip_address, SERVER_PORT)
-    print(server_address)
     if verbose: print('myssn INFO: Create server on {} port {}'.format(*server_address))
     sock.bind(server_address)
     return sock
@@ -124,7 +123,9 @@ def recv(sock):
             else:
                 # If the CRC is fine then decrypt the message
                 data = dec(msg_body_bytes)            
-                if verbose: print('myssn DATA: {!r}'.format(data))
+                # if verbose: print('myssn DATA: {!r}'.format(data))
+                if verbose: print('myssn DATA: ')
+                print(data)
         else:
             # No data was received, this may be because of a closed coennection
             if verbose: print('myssn INFO: no data myssn connection')
@@ -147,6 +148,7 @@ def send(sock, data):
     # crc is a python's integer, we have to convert it into a 4 bytes array to transmit it
     crc_bytes = crc.to_bytes(4, byteorder = 'little')
     if verbose: print('myssn INFO: tx crc32 = {}, crc bytes = {}'.format(crc, crc_bytes))
+    print("--------------------------------------------------------------------------------------------------------------------------------\n")
     # Concatenate the crc at the end of the encrypted message
     bytes_msg = bytes_msg + crc_bytes
     # Send the message over TCP

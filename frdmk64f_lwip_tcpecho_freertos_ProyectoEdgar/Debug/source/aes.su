@@ -19,4 +19,4 @@
 ../source/aes.c:518:6:AES_CBC_decrypt_buffer	48	static
 ../source/aes.c:540:6:AES_CTR_xcrypt_buffer	48	static
 ../source/aes.c:581:6:aes_send_task	784	static
-../source/aes.c:623:5:aes_recv_task	776	static
+../source/aes.c:643:5:aes_recv_task	776	static

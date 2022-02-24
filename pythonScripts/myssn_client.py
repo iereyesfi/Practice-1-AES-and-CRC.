@@ -4,7 +4,7 @@
 import myssn
 import sys
 
-SERVER_ADDRESS = "192.168.0.102"
+SERVER_ADDRESS = '192.168.0.102'
 
 try:
     client = myssn.client_connect(SERVER_ADDRESS)
@@ -28,8 +28,7 @@ try:
                 break
         except: 
             print('INFO: Client Exception') 
-            break  
-    input()     
+            break       
 
 except ConnectionRefusedError:
     print('INFO: The server is not available')

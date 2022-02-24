@@ -1,2 +1,4 @@
-../lwip/contrib/apps/tcpecho/tcpecho.c:105:13:tcpecho_thread	56	static
-../lwip/contrib/apps/tcpecho/tcpecho.c:164:1:tcpecho_init	16	static
+../lwip/contrib/apps/tcpecho/tcpecho.c:46:13:tcpecho_server_thread	56	static
+../lwip/contrib/apps/tcpecho/tcpecho.c:103:13:tcpecho_client_thread	1088	static
+../lwip/contrib/apps/tcpecho/tcpecho.c:165:6:tcpecho_server_init	16	static
+../lwip/contrib/apps/tcpecho/tcpecho.c:170:6:tcpecho_client_init	16	static

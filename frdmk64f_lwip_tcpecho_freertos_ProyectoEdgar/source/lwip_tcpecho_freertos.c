@@ -32,8 +32,7 @@
  * Definitions
  ******************************************************************************/
 /* K64F Client or Server */
-#define SERVER		(1)
-#define CLIENT		(0)
+#define SERVER		    (1)          /* By seting this Macro definition to 1 the K64F board will be a server, otherwise will be a client */
 
 #if SERVER
 /* IP address configuration. */
@@ -41,14 +40,13 @@
 #define configIP_ADDR1 168
 #define configIP_ADDR2 0
 #define configIP_ADDR3 102
-#endif
 
-#if CLIENT
+#else
 /* IP address configuration. */
 #define configIP_ADDR0 192
 #define configIP_ADDR1 168
 #define configIP_ADDR2 0
-#define configIP_ADDR3 102
+#define configIP_ADDR3 101
 #endif
 
 /* Netmask configuration. */
@@ -125,7 +123,7 @@ static void stack_init(void *arg)
 
     mdioHandle.resource.csrClock_Hz = EXAMPLE_CLOCK_FREQ;
 
-    IP4_ADDR(&netif_ipaddr, configIP_ADDR0, configIP_ADDR1, configIP_ADDR2, configIP_ADDR3);
+    IP4_ADDR(&netif_ipaddr, configIP_ADDR0, configIP_ADDR1, configIP_ADDR2, 102);
     IP4_ADDR(&netif_netmask, configNET_MASK0, configNET_MASK1, configNET_MASK2, configNET_MASK3);
     IP4_ADDR(&netif_gw, configGW_ADDR0, configGW_ADDR1, configGW_ADDR2, configGW_ADDR3);
 
@@ -147,7 +145,11 @@ static void stack_init(void *arg)
            ((u8_t *)&netif_gw)[2], ((u8_t *)&netif_gw)[3]);
     PRINTF("************************************************\r\n");
 
-    tcpecho_init();
+    #if SERVER
+    tcpecho_server_init();
+    #else
+    tcpecho_client_init();
+    #endif
 
     vTaskDelete(NULL);
 }

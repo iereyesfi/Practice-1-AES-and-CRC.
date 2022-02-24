@@ -3,7 +3,7 @@
 import myssn
 import sys
 
-SERVER_ADDRESS = "192.168.0.102"
+SERVER_ADDRESS = '192.168.0.101'
 
 server = myssn.server_create(SERVER_ADDRESS)
 
